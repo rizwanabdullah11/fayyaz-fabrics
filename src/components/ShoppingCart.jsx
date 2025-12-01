@@ -1,4 +1,5 @@
 import { useState } from "react"
+import Link from "next/link"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 import { ShoppingCart, Plus, Minus, X, Edit2, ChevronLeft, ChevronRight, ShoppingBag } from "lucide-react"
@@ -24,9 +25,9 @@ export default function ShoppingCartSheet({ cart, updateQuantity, removeFromCart
   }
 
   const handleWhatsAppCheckout = () => {
-    const message = `Hi! I'd like to order:\n\n${cart.map(item =>
-      `${item.name}\nQuantity: ${item.quantity}\nPrice: Rs.${item.price.toLocaleString()}`
-    ).join('\n\n')}\n\nTotal: Rs.${total.toLocaleString()}`
+    const message = `Hi! I'd like to order:\\n\\n${cart.map(item =>
+      `${item.name}\\nQuantity: ${item.quantity}\\nPrice: Rs.${item.price.toLocaleString()}`
+    ).join('\\n\\n')}\\n\\nTotal: Rs.${total.toLocaleString()}`
 
     const whatsappUrl = `https://wa.me/YOUR_PHONE_NUMBER?text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, '_blank')
@@ -196,8 +197,8 @@ export default function ShoppingCartSheet({ cart, updateQuantity, removeFromCart
                         key={idx}
                         onClick={() => setCarouselIndex(idx)}
                         className={`h-1.5 rounded-full transition-all ${idx === carouselIndex
-                            ? 'w-6 bg-gray-800'
-                            : 'w-1.5 bg-gray-300'
+                          ? 'w-6 bg-gray-800'
+                          : 'w-1.5 bg-gray-300'
                           }`}
                       />
                     ))}
@@ -218,14 +219,14 @@ export default function ShoppingCartSheet({ cart, updateQuantity, removeFromCart
               </button>
             </div>
 
-            <button
-              onClick={handleWhatsAppCheckout}
+            <Link
+              href="/checkout"
               className="w-full bg-[#2D2D2D] hover:bg-[#1a1a1a] text-white rounded-full py-4 px-6 flex items-center justify-center gap-3 transition-colors shadow-lg"
             >
               <ShoppingBag className="w-5 h-5" />
               <span className="font-medium">Check out</span>
               <span className="font-medium">• Rs.{total.toLocaleString()}</span>
-            </button>
+            </Link>
 
             {/* WhatsApp Button */}
             <button
