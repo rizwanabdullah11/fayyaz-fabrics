@@ -104,6 +104,10 @@ export default function Sidebar({ isOpen, onClose }) {
                                 <User className="w-4 h-4 text-gray-600" />
                                 <span className="font-semibold text-gray-700">My Account</span>
                             </a>
+                            <a href="/orders" className="flex items-center gap-3 px-4 py-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-all group">
+                                <ShoppingBag className="w-4 h-4 text-gray-600" />
+                                <span className="font-semibold text-gray-700">My Orders</span>
+                            </a>
                             <a href="#" className="flex items-center gap-3 px-4 py-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-all group">
                                 <Settings className="w-4 h-4 text-gray-600" />
                                 <span className="font-semibold text-gray-700">Settings</span>
