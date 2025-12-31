@@ -22,7 +22,9 @@ export default function ProductCard({ product, onAddToCart }) {
       {/* Favorite Button */}
       <button
         onClick={() => setIsFavorite(!isFavorite)}
-        className="absolute top-3 right-3 z-10 w-9 h-9 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
+        aria-pressed={isFavorite}
+        aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+        className="absolute top-3 right-3 z-10 w-9 h-9 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
       >
         <Heart
           className={`w-4 h-4 transition-colors ${isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-600'
@@ -32,9 +34,14 @@ export default function ProductCard({ product, onAddToCart }) {
 
       {/* Product Image */}
       <div className="relative aspect-square overflow-hidden bg-gradient-to-br from-gray-100 to-gray-50">
+        {/* Skeleton while image loads */}
+        <div className={`absolute inset-0 animate-pulse bg-gradient-to-br from-gray-200 to-gray-100 ${imageLoaded ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`}></div>
+
         <img
           src={product.image}
           alt={product.name}
+          loading="lazy"
+          decoding="async"
           onLoad={() => setImageLoaded(true)}
           className={`w-full h-full object-cover transition-all duration-500 ${imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
             } group-hover:scale-110`}
@@ -44,6 +51,7 @@ export default function ProductCard({ product, onAddToCart }) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
           <Button
             onClick={() => onAddToCart(product)}
+            aria-label={`Quick add ${product.name} to cart`}
             className="bg-white text-indigo-600 hover:bg-indigo-600 hover:text-white font-bold px-6 py-2 rounded-full shadow-xl transform translate-y-4 group-hover:translate-y-0 transition-all duration-300"
           >
             <ShoppingCart className="w-4 h-4 mr-2" />
