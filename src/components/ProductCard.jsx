@@ -1,8 +1,10 @@
 import { ShoppingCart, Star, Heart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 export default function ProductCard({ product, onAddToCart }) {
+  const router = useRouter()
   const [isFavorite, setIsFavorite] = useState(false)
   const [imageLoaded, setImageLoaded] = useState(false)
 
@@ -11,7 +13,10 @@ export default function ProductCard({ product, onAddToCart }) {
     : 0
 
   return (
-    <div className="group relative bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-indigo-200 hover:scale-[1.02]">
+    <div 
+      onClick={() => router.push(`/products/${product.id}`)}
+      className="group relative bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-indigo-200 hover:scale-[1.02] cursor-pointer"
+    >
       {/* Sale Badge */}
       {product.sale && (
         <div className="absolute top-3 left-3 z-10 bg-gradient-to-r from-red-500 to-pink-600 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg">
@@ -21,7 +26,10 @@ export default function ProductCard({ product, onAddToCart }) {
 
       {/* Favorite Button */}
       <button
-        onClick={() => setIsFavorite(!isFavorite)}
+        onClick={(e) => {
+          e.stopPropagation()
+          setIsFavorite(!isFavorite)
+        }}
         aria-pressed={isFavorite}
         aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
         className="absolute top-3 right-3 z-10 w-9 h-9 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
@@ -50,7 +58,10 @@ export default function ProductCard({ product, onAddToCart }) {
         {/* Quick Add Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
           <Button
-            onClick={() => onAddToCart(product)}
+            onClick={(e) => {
+              e.stopPropagation()
+              onAddToCart(product)
+            }}
             aria-label={`Quick add ${product.name} to cart`}
             className="bg-white text-indigo-600 hover:bg-indigo-600 hover:text-white font-bold px-6 py-2 rounded-full shadow-xl transform translate-y-4 group-hover:translate-y-0 transition-all duration-300"
           >
@@ -120,7 +131,10 @@ export default function ProductCard({ product, onAddToCart }) {
 
           {/* Add to Cart Button */}
           <Button
-            onClick={() => onAddToCart(product)}
+            onClick={(e) => {
+              e.stopPropagation()
+              onAddToCart(product)
+            }}
             size="sm"
             className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white rounded-full px-4 shadow-lg hover:shadow-xl transition-all"
           >
