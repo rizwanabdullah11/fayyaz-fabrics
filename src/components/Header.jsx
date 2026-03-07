@@ -97,22 +97,25 @@ export default function Header({ cart, updateQuantity, removeFromCart }) {
       <div className="border-t border-gray-100 bg-gray-50">
         <div className="container mx-auto px-4">
           <nav className="flex items-center gap-1 overflow-x-auto py-3 scrollbar-hide">
-            <a href="#" className="px-4 py-2 rounded-full bg-gray-800 text-white font-semibold text-sm whitespace-nowrap">
-              New Arrivals
+            <a href="/" className="px-4 py-2 rounded-full hover:bg-white text-gray-700 font-medium text-sm whitespace-nowrap transition-colors">
+              Home
             </a>
-            <a href="#" className="px-4 py-2 rounded-full hover:bg-white text-gray-700 font-medium text-sm whitespace-nowrap transition-colors">
+            <a href="/collections" className="px-4 py-2 rounded-full bg-gray-800 text-white font-semibold text-sm whitespace-nowrap">
+              Collections
+            </a>
+            <a href="/collections/boski-fabrics" className="px-4 py-2 rounded-full hover:bg-white text-gray-700 font-medium text-sm whitespace-nowrap transition-colors">
               Boski Collection
             </a>
-            <a href="#" className="px-4 py-2 rounded-full hover:bg-white text-gray-700 font-medium text-sm whitespace-nowrap transition-colors">
+            <a href="/collections/wool-collection" className="px-4 py-2 rounded-full hover:bg-white text-gray-700 font-medium text-sm whitespace-nowrap transition-colors">
               Wool Fabrics
             </a>
-            <a href="#" className="px-4 py-2 rounded-full hover:bg-white text-gray-700 font-medium text-sm whitespace-nowrap transition-colors">
+            <a href="/collections/cotton-fabrics" className="px-4 py-2 rounded-full hover:bg-white text-gray-700 font-medium text-sm whitespace-nowrap transition-colors">
               Cotton Range
             </a>
-            <a href="#" className="px-4 py-2 rounded-full hover:bg-white text-gray-700 font-medium text-sm whitespace-nowrap transition-colors">
+            <a href="/collections/designer-collection" className="px-4 py-2 rounded-full hover:bg-white text-gray-700 font-medium text-sm whitespace-nowrap transition-colors">
               Designer Collection
             </a>
-            <a href="#" className="px-4 py-2 rounded-full bg-red-100 text-red-600 font-semibold text-sm whitespace-nowrap">
+            <a href="#sale" className="px-4 py-2 rounded-full bg-red-100 text-red-600 font-semibold text-sm whitespace-nowrap">
               🔥 Sale
             </a>
           </nav>

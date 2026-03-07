@@ -1,4 +1,5 @@
 import { products } from "@/data/products"
+import { categories } from "@/data/categories"
 
 export default function sitemap() {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://fayyazfabrics.com"
@@ -10,12 +11,25 @@ export default function sitemap() {
     priority: 0.8,
   }))
 
+  const collectionUrls = categories.map((category) => ({
+    url: `${baseUrl}/collections/${category.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly",
+    priority: 0.9,
+  }))
+
   return [
     {
       url: baseUrl,
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 1,
+    },
+    {
+      url: `${baseUrl}/collections`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/checkout`,
@@ -29,6 +43,7 @@ export default function sitemap() {
       changeFrequency: "monthly",
       priority: 0.6,
     },
+    ...collectionUrls,
     ...productUrls,
   ]
 }

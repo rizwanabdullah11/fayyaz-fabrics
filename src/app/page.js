@@ -5,17 +5,11 @@ import ProductCard from "@/components/ProductCard"
 import Footer from "@/components/Footer"
 import { useCart } from "@/hooks/useCart"
 import { products, getFeaturedProducts } from "@/data/products"
+import { categories } from "@/data/categories"
 
 export default function Home() {
   const { cart, addToCart, updateQuantity, removeFromCart } = useCart()
   const featuredProducts = getFeaturedProducts()
-
-  const categories = [
-    { name: "Boski Fabrics", image: "https://images.unsplash.com/photo-1558769132-cb1aea3c8565?w=400&h=300&fit=crop", count: "45 Products" },
-    { name: "Wool Collection", image: "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=400&h=300&fit=crop", count: "38 Products" },
-    { name: "Cotton Range", image: "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=400&h=300&fit=crop", count: "52 Products" },
-    { name: "Designer Collection", image: "https://images.unsplash.com/photo-1558769132-cb1aea3c8565?w=400&h=300&fit=crop", count: "21 Products" },
-  ]
 
   const brands = [
     { name: "Premium", logo: "https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=200&h=200&fit=crop" },
@@ -73,27 +67,44 @@ export default function Home() {
 
         {/* Shop by Category */}
         <div className="container mx-auto px-4 py-12">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-800 mb-2">Shop by Category</h2>
-            <p className="text-gray-600">Explore our latest shopping related search trends</p>
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h2 className="text-3xl font-bold text-gray-800 mb-2">Shop by Collection</h2>
+              <p className="text-gray-600">Explore our curated fabric collections</p>
+            </div>
+            <button
+              onClick={() => window.location.href = '/collections'}
+              className="text-indigo-600 hover:text-indigo-700 font-semibold text-sm flex items-center gap-1"
+            >
+              View All
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            {categories.map((category, index) => (
+            {categories.slice(0, 4).map((category) => (
               <div
-                key={index}
+                key={category.id}
+                onClick={() => window.location.href = `/collections/${category.slug}`}
                 className="group cursor-pointer bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
               >
-                <div className="aspect-[4/3] overflow-hidden">
+                <div className="aspect-[4/3] overflow-hidden relative">
                   <img
                     src={category.image}
                     alt={category.name}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   />
+                  {category.featured && (
+                    <div className="absolute top-2 right-2 bg-yellow-400 text-gray-900 px-2 py-1 rounded-full text-xs font-bold">
+                      Featured
+                    </div>
+                  )}
                 </div>
                 <div className="p-4 text-center">
                   <h3 className="font-bold text-gray-800 mb-1">{category.name}</h3>
-                  <p className="text-sm text-gray-600">{category.count}</p>
+                  <p className="text-sm text-gray-600">{category.count} Products</p>
                 </div>
               </div>
             ))}
