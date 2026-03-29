@@ -9,15 +9,18 @@ import { ShoppingCart, Heart, Star, Truck, Shield, RefreshCw, ArrowLeft, Check }
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 
+import { useWishlist } from "@/contexts/WishlistContext"
+
 export default function ProductDetailsPage() {
   const params = useParams()
   const router = useRouter()
   const { cart, addToCart, updateQuantity, removeFromCart } = useCart()
+  const { toggleWishlist, isInWishlist } = useWishlist()
   const [selectedImage, setSelectedImage] = useState(0)
   const [quantity, setQuantity] = useState(1)
-  const [isFavorite, setIsFavorite] = useState(false)
-
+  
   const product = getProductById(parseInt(params.id))
+  const isFavorite = product ? isInWishlist(product.id) : false
 
   if (!product) {
     return (
@@ -232,7 +235,7 @@ export default function ProductDetailsPage() {
                   Add to Cart
                 </Button>
                 <Button
-                  onClick={() => setIsFavorite(!isFavorite)}
+                  onClick={() => toggleWishlist(product)}
                   variant="outline"
                   className={`w-14 h-14 rounded-xl border-2 transition-all ${
                     isFavorite

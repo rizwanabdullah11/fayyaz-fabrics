@@ -22,13 +22,19 @@ export const metadata = {
   },
 };
 
+import { WishlistProvider } from "@/contexts/WishlistContext";
+import ScrollToTop from "@/components/ScrollToTop";
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <WishlistProvider>
+          {children}
+          <ScrollToTop />
+        </WishlistProvider>
       </body>
     </html>
   );
