@@ -1,8 +1,12 @@
 import { Search, Heart, User, Phone, Mail } from "lucide-react"
 import ShoppingCartSheet from "./ShoppingCart"
 import { Button } from "@/components/ui/button"
+import { useWishlist } from "@/contexts/WishlistContext"
+import SearchBar from "./SearchBar"
 
 export default function Header({ cart, updateQuantity, removeFromCart }) {
+  const { count: wishlistCount } = useWishlist()
+
   return (
     <header className="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-sm">
       {/* Top Bar */}
@@ -31,7 +35,10 @@ export default function Header({ cart, updateQuantity, removeFromCart }) {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between gap-4">
           {/* Logo */}
-          <div className="flex items-center gap-3">
+          <div 
+            onClick={() => window.location.href = '/'}
+            className="flex items-center gap-3 cursor-pointer"
+          >
             <div className="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-xl">FF</span>
             </div>
@@ -43,16 +50,9 @@ export default function Header({ cart, updateQuantity, removeFromCart }) {
             </div>
           </div>
 
-          {/* Search Bar */}
+          {/* Search Bar Component */}
           <div className="hidden md:flex flex-1 max-w-xl">
-            <div className="relative w-full">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search for fabrics, brands, or categories..."
-                className="w-full pl-12 pr-4 py-3 rounded-full border-2 border-gray-200 focus:border-gray-400 focus:outline-none transition-colors"
-              />
-            </div>
+            <SearchBar />
           </div>
 
           {/* Actions */}
@@ -61,11 +61,18 @@ export default function Header({ cart, updateQuantity, removeFromCart }) {
               <Search className="w-5 h-5" />
             </Button>
 
-            <Button variant="ghost" size="sm" className="relative hidden sm:flex">
+            <Button 
+                onClick={() => window.location.href = '/wishlist'}
+                variant="ghost" 
+                size="sm" 
+                className="relative hidden sm:flex"
+            >
               <Heart className="w-5 h-5" />
-              <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                0
-              </span>
+              {wishlistCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                    {wishlistCount}
+                </span>
+              )}
             </Button>
 
             <Button variant="ghost" size="sm" className="hidden sm:flex">

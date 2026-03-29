@@ -218,6 +218,50 @@ export default function Home() {
             </div>
           </div>
         </div>
+        {/* Newsletter Section */}
+        <div className="bg-indigo-900 overflow-hidden relative">
+          {/* Decorative Background Elements */}
+          <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-[500px] h-[500px] bg-indigo-500/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-[300px] h-[300px] bg-purple-500/20 rounded-full blur-3xl"></div>
+          
+          <div className="container mx-auto px-4 py-16 md:py-24 relative z-10 text-center text-white">
+            <div className="max-w-2xl mx-auto">
+              <div className="inline-block p-4 bg-white/10 backdrop-blur-sm rounded-full mb-6">
+                <svg className="w-8 h-8 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <h2 className="text-3xl md:text-5xl font-bold mb-4">Stay in the Loop</h2>
+              <p className="text-indigo-200 text-lg mb-8">
+                Subscribe to our newsletter and be the first to know about new arrivals, 
+                exclusive collections, and special offers.
+              </p>
+              <form 
+                className="flex flex-col sm:flex-row gap-4 p-2 bg-white/10 backdrop-blur-sm rounded-2xl"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  alert("Thank you for subscribing! 🎉");
+                }}
+              >
+                <input
+                  type="email"
+                  placeholder="Enter your email address"
+                  required
+                  className="flex-1 px-6 py-4 rounded-xl bg-white/95 text-gray-900 border-none focus:ring-2 focus:ring-indigo-400 focus:outline-none transition-all"
+                />
+                <button
+                  type="submit"
+                  className="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-xl active:scale-95 whitespace-nowrap"
+                >
+                  Subscribe Now
+                </button>
+              </form>
+              <p className="mt-6 text-indigo-300/60 text-sm">
+                By subscribing, you agree to our Privacy Policy and Terms of Service.
+              </p>
+            </div>
+          </div>
+        </div>
       </main>
 
       <Footer />

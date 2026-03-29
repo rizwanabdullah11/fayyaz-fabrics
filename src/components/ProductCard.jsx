@@ -3,9 +3,12 @@ import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 
+import { useWishlist } from "@/contexts/WishlistContext"
+
 export default function ProductCard({ product, onAddToCart, viewMode = "grid" }) {
   const router = useRouter()
-  const [isFavorite, setIsFavorite] = useState(false)
+  const { toggleWishlist, isInWishlist } = useWishlist()
+  const isFavorite = isInWishlist(product.id)
   const [imageLoaded, setImageLoaded] = useState(false)
 
   const discountPercentage = product.originalPrice
@@ -28,7 +31,7 @@ export default function ProductCard({ product, onAddToCart, viewMode = "grid" })
       <button
         onClick={(e) => {
           e.stopPropagation()
-          setIsFavorite(!isFavorite)
+          toggleWishlist(product)
         }}
         aria-pressed={isFavorite}
         aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
