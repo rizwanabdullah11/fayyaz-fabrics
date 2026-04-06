@@ -14,6 +14,16 @@ const mockOrders = [
         ]
     },
     {
+        id: "ORD-2023-003",
+        date: "December 8, 2025",
+        status: "Processing",
+        total: 12600,
+        items: [
+            { name: "Premium Boski Fabric", quantity: 2, price: 4500 },
+            { name: "Cotton Shalwar Kameez", quantity: 1, price: 3500 }
+        ]
+    },
+    {
         id: "ORD-2023-002",
         date: "November 25, 2025",
         status: "Delivered",
