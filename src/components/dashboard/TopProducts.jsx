@@ -45,37 +45,51 @@ export default function TopProducts() {
   ]
 
   return (
-    <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
+    <div className="bg-white rounded-2xl shadow-md border border-gray-200 p-6 hover:shadow-xl transition-all duration-300">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-bold text-gray-900">Top Products</h2>
-        <TrendingUp className="w-5 h-5 text-green-600" />
+        <div>
+          <h2 className="text-xl font-bold text-gray-900 mb-1">Top Products</h2>
+          <p className="text-sm text-gray-500">Best performing items this month</p>
+        </div>
+        <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg">
+          <TrendingUp className="w-5 h-5 text-white" />
+        </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         {products.map((product, index) => (
           <div
             key={product.id}
-            className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+            className="group flex items-center gap-4 p-4 bg-gradient-to-r from-gray-50 to-white rounded-xl hover:from-indigo-50 hover:to-purple-50 transition-all duration-300 border border-gray-100 hover:border-indigo-200 hover:shadow-md"
           >
-            <div className="flex items-center justify-center w-8 h-8 bg-indigo-100 text-indigo-600 rounded-full font-bold text-sm">
+            <div className="relative flex items-center justify-center w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl font-bold text-sm text-white shadow-lg">
               {index + 1}
+              {index === 0 && (
+                <div className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full flex items-center justify-center text-xs">
+                  👑
+                </div>
+              )}
             </div>
             <img
               src={product.image}
               alt={product.name}
-              className="w-12 h-12 rounded-lg object-cover"
+              className="w-14 h-14 rounded-xl object-cover shadow-md group-hover:scale-110 transition-transform duration-300"
             />
             <div className="flex-1 min-w-0">
-              <p className="font-semibold text-gray-900 text-sm truncate">
+              <p className="font-semibold text-gray-900 text-sm truncate group-hover:text-indigo-600 transition-colors">
                 {product.name}
               </p>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-gray-500 flex items-center gap-1">
+                <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />
                 {product.sales} sales
               </p>
             </div>
             <div className="text-right">
               <p className="font-bold text-gray-900 text-sm">{product.revenue}</p>
-              <p className="text-xs text-green-600">+{product.trend}%</p>
+              <p className="text-xs font-semibold text-green-600 flex items-center gap-1">
+                <TrendingUp className="w-3 h-3" />
+                +{product.trend}%
+              </p>
             </div>
           </div>
         ))}
