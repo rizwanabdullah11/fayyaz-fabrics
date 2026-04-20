@@ -44,39 +44,44 @@ export default function RevenueChart() {
   const totalOrders = currentData.reduce((sum, item) => sum + item.orders, 0)
 
   return (
-    <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
+    <div className="bg-white rounded-2xl shadow-md border border-gray-200 p-6 hover:shadow-xl transition-all duration-300">
       <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
         <div>
-          <h2 className="text-xl font-bold text-gray-900 mb-1">Revenue Overview</h2>
-          <p className="text-sm text-gray-500">Track your revenue and order trends</p>
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent mb-1">
+            Revenue Overview
+          </h2>
+          <p className="text-sm text-gray-500 flex items-center gap-2">
+            <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+            Track your revenue and order trends
+          </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 bg-gray-100 p-1 rounded-xl">
           <button
             onClick={() => setPeriod("week")}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 ${
               period === "week"
-                ? "bg-indigo-600 text-white"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg scale-105"
+                : "text-gray-600 hover:text-gray-900"
             }`}
           >
             Week
           </button>
           <button
             onClick={() => setPeriod("month")}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 ${
               period === "month"
-                ? "bg-indigo-600 text-white"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg scale-105"
+                : "text-gray-600 hover:text-gray-900"
             }`}
           >
             Month
           </button>
           <button
             onClick={() => setPeriod("year")}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 ${
               period === "year"
-                ? "bg-indigo-600 text-white"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg scale-105"
+                : "text-gray-600 hover:text-gray-900"
             }`}
           >
             Year
@@ -97,17 +102,24 @@ export default function RevenueChart() {
                 </span>
               </div>
             </div>
-            <div className="relative w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+            <div className="relative w-full bg-gradient-to-r from-gray-100 to-gray-200 rounded-full h-5 overflow-hidden shadow-inner">
               <div
-                className="absolute inset-y-0 left-0 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full transition-all duration-500 flex items-center justify-end pr-2"
+                className="absolute inset-y-0 left-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-full transition-all duration-700 flex items-center justify-end pr-2 shadow-lg"
                 style={{ width: `${(item.revenue / maxRevenue) * 100}%` }}
               >
                 {(item.revenue / maxRevenue) * 100 > 20 && (
-                  <span className="text-xs font-semibold text-white">
+                  <span className="text-xs font-bold text-white drop-shadow-lg">
                     {Math.round((item.revenue / maxRevenue) * 100)}%
                   </span>
                 )}
               </div>
+              {/* Shimmer effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer" 
+                   style={{ 
+                     width: `${(item.revenue / maxRevenue) * 100}%`,
+                     animation: 'shimmer 2s infinite'
+                   }} 
+              />
             </div>
           </div>
         ))}

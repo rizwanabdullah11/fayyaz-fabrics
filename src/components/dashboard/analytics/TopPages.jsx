@@ -69,10 +69,12 @@ export default function TopPages() {
   ]
 
   return (
-    <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
+    <div className="bg-white rounded-2xl shadow-md border border-gray-200 p-6 hover:shadow-xl transition-all duration-300">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-xl font-bold text-gray-900 mb-1">Top Pages</h2>
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent mb-1">
+            Top Pages
+          </h2>
           <p className="text-sm text-gray-500">Most visited pages on your site</p>
         </div>
       </div>

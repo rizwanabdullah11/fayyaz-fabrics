@@ -47,41 +47,48 @@ export default function TrafficSources() {
   const totalVisitors = sources.reduce((sum, source) => sum + source.visitors, 0)
 
   return (
-    <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
+    <div className="bg-white rounded-2xl shadow-md border border-gray-200 p-6 hover:shadow-xl transition-all duration-300">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-xl font-bold text-gray-900 mb-1">Traffic Sources</h2>
-          <p className="text-sm text-gray-500">{totalVisitors.toLocaleString()} total visitors</p>
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent mb-1">
+            Traffic Sources
+          </h2>
+          <p className="text-sm text-gray-500 flex items-center gap-2">
+            <span className="font-bold text-indigo-600">{totalVisitors.toLocaleString()}</span>
+            total visitors
+          </p>
         </div>
       </div>
 
       <div className="space-y-4">
         {sources.map((source, index) => (
-          <div key={index} className="space-y-2">
+          <div key={index} className="group space-y-2 p-3 rounded-xl hover:bg-gradient-to-r hover:from-gray-50 hover:to-white transition-all duration-300">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className={`w-10 h-10 ${source.color} rounded-lg flex items-center justify-center`}>
-                  <source.icon className="w-5 h-5 text-white" />
+                <div className={`relative w-12 h-12 ${source.color} rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                  <source.icon className="w-6 h-6 text-white" />
+                  <div className={`absolute inset-0 ${source.color} rounded-xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity`} />
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-900">{source.name}</p>
-                  <p className="text-xs text-gray-500">
+                  <p className="font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">{source.name}</p>
+                  <p className="text-xs text-gray-500 font-medium">
                     {source.visitors.toLocaleString()} visitors
                   </p>
                 </div>
               </div>
               <div className="text-right">
-                <p className="font-bold text-gray-900">{source.percentage}%</p>
-                <p className={`text-xs font-semibold ${
+                <p className="text-xl font-bold text-gray-900">{source.percentage}%</p>
+                <p className={`text-xs font-bold flex items-center gap-1 justify-end ${
                   source.change >= 0 ? "text-green-600" : "text-red-600"
                 }`}>
-                  {source.change >= 0 ? "+" : ""}{source.change}%
+                  {source.change >= 0 ? "↗" : "↘"}
+                  {Math.abs(source.change)}%
                 </p>
               </div>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+            <div className="relative w-full bg-gradient-to-r from-gray-100 to-gray-200 rounded-full h-3 overflow-hidden shadow-inner">
               <div
-                className={`${source.color} h-full rounded-full transition-all duration-500`}
+                className={`${source.color} h-full rounded-full transition-all duration-700 shadow-lg`}
                 style={{ width: `${source.percentage}%` }}
               />
             </div>
@@ -91,13 +98,17 @@ export default function TrafficSources() {
 
       {/* Summary */}
       <div className="mt-6 pt-6 border-t border-gray-200">
-        <div className="bg-indigo-50 rounded-lg p-4">
-          <p className="text-sm font-semibold text-indigo-900 mb-1">
-            💡 Insight
-          </p>
-          <p className="text-xs text-indigo-700">
-            Organic search is your top traffic source. Consider investing more in SEO to maintain growth.
-          </p>
+        <div className="relative bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 rounded-xl p-4 overflow-hidden">
+          <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-indigo-400/20 to-purple-400/20 rounded-full blur-2xl" />
+          <div className="relative">
+            <p className="text-sm font-bold text-indigo-900 mb-1 flex items-center gap-2">
+              <span className="text-lg">💡</span>
+              AI Insight
+            </p>
+            <p className="text-xs text-indigo-700 font-medium">
+              Organic search is your top traffic source. Consider investing more in SEO to maintain growth.
+            </p>
+          </div>
         </div>
       </div>
     </div>

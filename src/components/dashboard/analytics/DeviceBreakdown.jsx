@@ -34,11 +34,16 @@ export default function DeviceBreakdown() {
   const totalUsers = devices.reduce((sum, device) => sum + device.users, 0)
 
   return (
-    <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
+    <div className="bg-white rounded-2xl shadow-md border border-gray-200 p-6 hover:shadow-xl transition-all duration-300">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-xl font-bold text-gray-900 mb-1">Device Breakdown</h2>
-          <p className="text-sm text-gray-500">{totalUsers.toLocaleString()} total users</p>
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent mb-1">
+            Device Breakdown
+          </h2>
+          <p className="text-sm text-gray-500 flex items-center gap-2">
+            <span className="font-bold text-purple-600">{totalUsers.toLocaleString()}</span>
+            total users
+          </p>
         </div>
       </div>
 
@@ -79,31 +84,32 @@ export default function DeviceBreakdown() {
       </div>
 
       {/* Device Stats */}
-      <div className="space-y-4">
+      <div className="space-y-3">
         {devices.map((device, index) => (
-          <div key={index} className="bg-gray-50 rounded-lg p-4">
+          <div key={index} className="group bg-gradient-to-r from-gray-50 to-white rounded-xl p-4 hover:from-indigo-50 hover:to-purple-50 transition-all duration-300 border border-gray-100 hover:border-indigo-200 hover:shadow-md">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-3">
-                <div className={`w-10 h-10 ${device.color} rounded-lg flex items-center justify-center`}>
-                  <device.icon className="w-5 h-5 text-white" />
+                <div className={`relative w-12 h-12 ${device.color} rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                  <device.icon className="w-6 h-6 text-white" />
+                  <div className={`absolute inset-0 ${device.color} rounded-xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity`} />
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-900">{device.name}</p>
-                  <p className="text-xs text-gray-500">{device.percentage}% of traffic</p>
+                  <p className="font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">{device.name}</p>
+                  <p className="text-xs text-gray-500 font-medium">{device.percentage}% of traffic</p>
                 </div>
               </div>
-              <p className="text-lg font-bold text-gray-900">
+              <p className="text-2xl font-bold text-gray-900">
                 {device.users.toLocaleString()}
               </p>
             </div>
             <div className="grid grid-cols-2 gap-3 text-xs">
-              <div>
-                <p className="text-gray-500">Sessions</p>
-                <p className="font-semibold text-gray-900">{device.sessions.toLocaleString()}</p>
+              <div className="bg-white/50 rounded-lg p-2">
+                <p className="text-gray-500 font-medium">Sessions</p>
+                <p className="font-bold text-gray-900 text-sm">{device.sessions.toLocaleString()}</p>
               </div>
-              <div>
-                <p className="text-gray-500">Bounce Rate</p>
-                <p className="font-semibold text-gray-900">{device.bounceRate}%</p>
+              <div className="bg-white/50 rounded-lg p-2">
+                <p className="text-gray-500 font-medium">Bounce Rate</p>
+                <p className="font-bold text-gray-900 text-sm">{device.bounceRate}%</p>
               </div>
             </div>
           </div>

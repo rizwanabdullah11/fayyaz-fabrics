@@ -56,34 +56,41 @@ export default function GeographicData() {
   const totalUsers = locations.reduce((sum, loc) => sum + loc.users, 0)
 
   return (
-    <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
+    <div className="bg-white rounded-2xl shadow-md border border-gray-200 p-6 hover:shadow-xl transition-all duration-300">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-xl font-bold text-gray-900 mb-1">Geographic Data</h2>
-          <p className="text-sm text-gray-500">{totalUsers.toLocaleString()} total users</p>
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent mb-1">
+            Geographic Data
+          </h2>
+          <p className="text-sm text-gray-500 flex items-center gap-2">
+            <span className="font-bold text-blue-600">{totalUsers.toLocaleString()}</span>
+            total users
+          </p>
         </div>
-        <MapPin className="w-5 h-5 text-gray-400" />
+        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center shadow-lg">
+          <MapPin className="w-5 h-5 text-white" />
+        </div>
       </div>
 
       <div className="space-y-3">
         {locations.map((location, index) => (
-          <div key={index} className="space-y-2">
+          <div key={index} className="group space-y-2 p-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 transition-all duration-300">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">{location.flag}</span>
+              <div className="flex items-center gap-3">
+                <span className="text-3xl group-hover:scale-110 transition-transform duration-300">{location.flag}</span>
                 <div>
-                  <p className="font-semibold text-gray-900 text-sm">{location.city}</p>
-                  <p className="text-xs text-gray-500">{location.country}</p>
+                  <p className="font-bold text-gray-900 text-sm group-hover:text-indigo-600 transition-colors">{location.city}</p>
+                  <p className="text-xs text-gray-500 font-medium">{location.country}</p>
                 </div>
               </div>
               <div className="text-right">
-                <p className="font-bold text-gray-900">{location.users.toLocaleString()}</p>
-                <p className="text-xs text-gray-500">{location.percentage}%</p>
+                <p className="text-lg font-bold text-gray-900">{location.users.toLocaleString()}</p>
+                <p className="text-xs text-gray-500 font-medium">{location.percentage}%</p>
               </div>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+            <div className="relative w-full bg-gradient-to-r from-gray-100 to-gray-200 rounded-full h-3 overflow-hidden shadow-inner">
               <div
-                className="bg-gradient-to-r from-indigo-500 to-purple-600 h-full rounded-full transition-all duration-500"
+                className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 h-full rounded-full transition-all duration-700 shadow-lg"
                 style={{ width: `${location.percentage}%` }}
               />
             </div>
@@ -93,13 +100,17 @@ export default function GeographicData() {
 
       {/* Summary */}
       <div className="mt-6 pt-6 border-t border-gray-200">
-        <div className="bg-blue-50 rounded-lg p-4">
-          <p className="text-sm font-semibold text-blue-900 mb-1">
-            🌍 Top Market
-          </p>
-          <p className="text-xs text-blue-700">
-            Karachi accounts for 36.3% of your total traffic. Consider localized marketing campaigns.
-          </p>
+        <div className="relative bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-xl p-4 overflow-hidden">
+          <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-400/20 to-indigo-400/20 rounded-full blur-2xl" />
+          <div className="relative">
+            <p className="text-sm font-bold text-blue-900 mb-1 flex items-center gap-2">
+              <span className="text-lg">🌍</span>
+              Top Market
+            </p>
+            <p className="text-xs text-blue-700 font-medium">
+              Karachi accounts for 36.3% of your total traffic. Consider localized marketing campaigns.
+            </p>
+          </div>
         </div>
       </div>
     </div>

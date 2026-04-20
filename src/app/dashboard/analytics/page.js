@@ -108,67 +108,83 @@ export default function AnalyticsPage() {
 
       <DashboardSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      <div className="lg:pl-64">
+      <div className="lg:pl-72">
         {/* Top Bar */}
-        <div className="sticky top-0 z-30 bg-white border-b border-gray-200 px-4 py-4">
-          <div className="flex items-center justify-between">
+        <div className="sticky top-0 z-30 bg-white/80 backdrop-blur-xl border-b border-gray-200 px-4 py-4 shadow-sm">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setSidebarOpen(true)}
-                className="lg:hidden p-2 hover:bg-gray-100 rounded-lg"
+                className="lg:hidden p-2 hover:bg-gray-100 rounded-xl transition-all"
               >
                 <Menu className="w-6 h-6" />
               </button>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Analytics</h1>
-                <p className="text-sm text-gray-500">Detailed insights and performance metrics</p>
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                  Analytics Dashboard
+                </h1>
+                <p className="text-sm text-gray-500 flex items-center gap-2 mt-1">
+                  <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                  Real-time insights and performance metrics
+                </p>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <select
                 value={dateRange}
                 onChange={(e) => setDateRange(e.target.value)}
-                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-sm"
+                className="px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-sm font-medium bg-white hover:border-indigo-300 transition-all"
               >
-                <option value="today">Today</option>
-                <option value="7days">Last 7 Days</option>
-                <option value="30days">Last 30 Days</option>
-                <option value="90days">Last 90 Days</option>
-                <option value="year">This Year</option>
+                <option value="today">📅 Today</option>
+                <option value="7days">📊 Last 7 Days</option>
+                <option value="30days">📈 Last 30 Days</option>
+                <option value="90days">📉 Last 90 Days</option>
+                <option value="year">🗓️ This Year</option>
               </select>
-              <Button variant="outline" size="sm">
-                Export Report
+              <Button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all">
+                <Download className="w-4 h-4 mr-2" />
+                Export
               </Button>
             </div>
           </div>
         </div>
 
         {/* Content */}
-        <div className="p-4 lg:p-8">
+        <div className="p-4 lg:p-8 bg-gradient-to-br from-gray-50 via-white to-indigo-50/30 min-h-screen">
           {/* Key Metrics Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             {metrics.map((metric, index) => (
-              <div key={index} className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition-shadow">
-                <div className="flex items-start justify-between mb-4">
-                  <div className={`w-12 h-12 ${metric.color} rounded-lg flex items-center justify-center`}>
-                    <metric.icon className="w-6 h-6 text-white" />
+              <div key={index} className="group relative bg-white rounded-2xl shadow-md border border-gray-200 p-6 hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 overflow-hidden">
+                {/* Animated gradient background */}
+                <div className={`absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300 ${metric.color.replace('bg-', 'bg-gradient-to-br from-')}`} />
+                
+                <div className="relative">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className={`relative w-14 h-14 ${metric.color} rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                      <metric.icon className="w-7 h-7 text-white" />
+                      <div className={`absolute inset-0 ${metric.color} rounded-xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity`} />
+                    </div>
+                    <div className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold shadow-sm ${
+                      metric.trend === "up" 
+                        ? "bg-gradient-to-r from-green-500 to-emerald-500 text-white" 
+                        : "bg-gradient-to-r from-red-500 to-rose-500 text-white"
+                    }`}>
+                      {metric.trend === "up" ? (
+                        <TrendingUp className="w-3.5 h-3.5" />
+                      ) : (
+                        <TrendingDown className="w-3.5 h-3.5" />
+                      )}
+                      {Math.abs(metric.change)}%
+                    </div>
                   </div>
-                  <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold ${
-                    metric.trend === "up" 
-                      ? "bg-green-100 text-green-700" 
-                      : "bg-red-100 text-red-700"
-                  }`}>
-                    {metric.trend === "up" ? (
-                      <TrendingUp className="w-3 h-3" />
-                    ) : (
-                      <TrendingDown className="w-3 h-3" />
-                    )}
-                    {Math.abs(metric.change)}%
+                  <div>
+                    <p className="text-3xl font-bold text-gray-900 mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-gray-900 group-hover:to-gray-600 group-hover:bg-clip-text transition-all">
+                      {metric.value}
+                    </p>
+                    <p className="text-sm font-medium text-gray-500 group-hover:text-gray-700 transition-colors">
+                      {metric.label}
+                    </p>
                   </div>
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-gray-900 mb-1">{metric.value}</p>
-                  <p className="text-sm text-gray-500">{metric.label}</p>
                 </div>
               </div>
             ))}
